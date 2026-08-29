@@ -1,2260 +1,1008 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>NOVA Search</title>
 
-<script async src="https://cse.google.com/cse.js?cx=000732f98f99a49d9"></script>
-
 <style>
-
-/* =========================================================
-   NOVA 1.1 — STABLE EDITION
-   ========================================================= */
-
-:root {
-  --bg: #f8f9fc;
-  --text: #202124;
-  --muted: #6b7280;
-
-  --card: rgba(255,255,255,0.88);
-  --card-solid: #ffffff;
-
-  --border: rgba(0,0,0,0.08);
-
-  --accent: #5b5ce2;
-  --accent-light: #7c6cff;
-
-  --shadow:
-    0 12px 40px rgba(30,40,80,0.08);
-}
-
-body.dark {
-
-  --bg: #0c0e13;
-  --text: #f5f7ff;
-  --muted: #9ca3af;
-
-  --card: rgba(22,25,33,0.92);
-  --card-solid: #161921;
-
-  --border: rgba(255,255,255,0.09);
-
-  --accent: #7778ff;
-  --accent-light: #9b8cff;
-
-  --shadow:
-    0 15px 50px rgba(0,0,0,0.35);
-}
-
-
-/* =========================================================
-   BASIC
-   ========================================================= */
-
 * {
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+:root {
+  --bg: #f7f8ff;
+  --card: rgba(255,255,255,.82);
+  --text: #242437;
+  --muted: #737589;
+  --border: rgba(0,0,0,.09);
+  --purple: #6946e8;
+  --purple2: #8b5cf6;
+}
+
+body.dark {
+  --bg: #090a10;
+  --card: rgba(20,21,30,.88);
+  --text: #f5f5ff;
+  --muted: #9b9cad;
+  --border: rgba(255,255,255,.1);
 }
 
 body {
-
   margin: 0;
-
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(105,70,232,.13), transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(139,92,246,.13), transparent 35%),
+    var(--bg);
+  color: var(--text);
   min-height: 100vh;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  color: var(--text);
-
-  background: var(--bg);
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
-
-  overflow-x: hidden;
+  transition: .3s;
 }
 
+/* TOP NAV */
 
-/* =========================================================
-   SUBTLE BACKGROUND
-   ========================================================= */
-
-body::before {
-
-  content: "";
-
-  position: fixed;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  pointer-events: none;
-
-  z-index: -1;
-
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(91,92,226,0.10),
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 90% 85%,
-      rgba(139,92,246,0.08),
-      transparent 30%
-    );
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-nav {
-
-  height: 70px;
-
+.topbar {
+  height: 58px;
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
-  padding:
-    0 28px;
+  padding: 0 22px;
 }
 
-.nav-left,
-.nav-right {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-}
-
-.nav-link {
-
-  color: var(--text);
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  opacity: 0.8;
-}
-
-.nav-link:hover {
-
-  text-decoration: underline;
-}
-
-.nav-button {
-
-  width: 42px;
-  height: 42px;
-
-  border-radius: 50%;
-
-  border:
-    1px solid var(--border);
-
-  background:
-    var(--card);
-
-  color: var(--text);
-
-  cursor: pointer;
-
-  font-size: 17px;
-
-  transition:
-    transform 0.18s ease,
-    background 0.2s ease;
-}
-
-.nav-button:hover {
-
-  transform: scale(1.06);
-}
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-.main {
-
-  width:
-    min(1000px, 92%);
-
-  margin: auto;
-
-  padding-top: 6vh;
-
-  padding-bottom: 90px;
-}
-
-
-/* =========================================================
-   LOGO — STABLE
-   ========================================================= */
-
-.logo {
-
-  text-align: center;
-
-  margin-bottom: 28px;
-}
-
-.logo h1 {
-
-  margin: 0;
-
-  font-size:
-    clamp(60px, 11vw, 120px);
-
-  font-weight: 900;
-
-  letter-spacing: -8px;
-
-  /*
-    Static gradient.
-    No constant color animation.
-  */
-
-  background:
-    linear-gradient(
-      100deg,
-      #4f46e5,
-      #7048e8,
-      #7954ef
-    );
-
-  -webkit-background-clip: text;
-
-  color: transparent;
-
-  /*
-    Cheap subtle glow.
-  */
-
-  text-shadow:
-    0 8px 30px rgba(91,92,226,0.18);
-
-  user-select: none;
-
-  /*
-    Very subtle animation.
-  */
-
-  animation:
-    logoPulse 4s ease-in-out infinite;
-}
-
-@keyframes logoPulse {
-
-  0%,
-  100% {
-
-    transform:
-      translateY(0);
-
-    filter:
-      brightness(1);
-  }
-
-  50% {
-
-    transform:
-      translateY(-2px);
-
-    filter:
-      brightness(1.04);
-  }
-}
-
-.logo p {
-
-  margin-top: 7px;
-
-  color: var(--muted);
-
-  letter-spacing: 4px;
-
-  font-size: 13px;
-
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   SEARCH AREA
-   ========================================================= */
-
-.search-wrapper {
-
-  position: relative;
-
-  width: 100%;
-}
-
-
-/* =========================================================
-   SEARCH BOX
-   ========================================================= */
-
-.search-box {
-
-  display: flex;
-
-  align-items: center;
-
-  width: 100%;
-
-  height: 62px;
-
-  padding:
-    0 10px 0 20px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 32px;
-
-  background:
-    var(--card);
-
-  box-shadow:
-    var(--shadow);
-
-  /*
-    Keep blur modest.
-    Heavy backdrop-filter can cause Safari flickering.
-  */
-
-  backdrop-filter:
-    blur(10px);
-
-  -webkit-backdrop-filter:
-    blur(10px);
-
-  transition:
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.search-box:focus-within {
-
-  border-color:
-    rgba(91,92,226,0.35);
-
-  box-shadow:
-    0 15px 45px
-    rgba(91,92,226,0.14);
-}
-
-
-.search-icon {
-
+.brand {
   font-size: 20px;
-
-  opacity: 0.5;
-
-  margin-right: 12px;
-
-  flex-shrink: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
 }
 
-
-#customSearch {
-
-  flex: 1;
-
-  min-width: 0;
-
-  border: none;
-
-  outline: none;
-
-  background: transparent;
-
-  color: var(--text);
-
-  font-size: 17px;
-}
-
-#customSearch::placeholder {
-
-  color:
-    var(--muted);
-}
-
-
-/* =========================================================
-   SEARCH BUTTON
-   ========================================================= */
-
-.search-action {
-
-  width: 48px;
-
-  height: 48px;
-
-  flex-shrink: 0;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #5b5ce2,
-      #7857e8
-    );
-
-  color: white;
-
-  cursor: pointer;
-
-  font-size: 18px;
-
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.search-action:hover {
-
-  transform:
-    scale(1.06);
-
-  box-shadow:
-    0 5px 20px
-    rgba(91,92,226,0.3);
-}
-
-.search-action:active {
-
-  transform:
-    scale(0.97);
-}
-
-
-/* =========================================================
-   KEYBOARD SHORTCUT
-   ========================================================= */
-
-.shortcut {
-
-  text-align: center;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  margin-top: 12px;
-}
-
-kbd {
-
-  padding:
-    3px 7px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 5px;
-
-  background:
-    var(--card);
-
-  font-family:
-    monospace;
-}
-
-
-/* =========================================================
-   QUICK SEARCHES
-   ========================================================= */
-
-.quick-links {
-
+.nav-right {
   display: flex;
-
-  justify-content: center;
-
-  flex-wrap: wrap;
-
   gap: 10px;
-
-  margin-top: 28px;
 }
 
-.quick {
-
-  border:
-    1px solid var(--border);
-
-  background:
-    var(--card);
-
-  color:
-    var(--text);
-
-  padding:
-    10px 15px;
-
-  border-radius:
-    20px;
-
-  cursor:
-    pointer;
-
-  font-size:
-    14px;
-
-  transition:
-    transform 0.18s ease,
-    border-color 0.18s ease,
-    background 0.18s ease;
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  transition: .2s;
 }
 
-.quick:hover {
-
-  transform:
-    translateY(-2px);
-
-  border-color:
-    rgba(91,92,226,0.35);
+.icon-btn:hover {
+  transform: scale(1.08);
 }
 
+/* NOVA INTERNAL BROWSER TABS */
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-.dashboard {
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:
-    18px;
-
-  margin-top:
-    38px;
+.browser {
+  width: min(1450px, 96%);
+  margin: 0 auto;
 }
 
-
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.card {
-
-  padding:
-    22px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    20px;
-
-  background:
-    var(--card);
-
-  box-shadow:
-    var(--shadow);
-
-  /*
-    No huge blur.
-  */
-
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  border-radius: 16px 16px 0 0;
+  overflow-x: auto;
 }
 
-.card-title {
-
-  font-size:
-    13px;
-
-  color:
-    var(--muted);
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    1.5px;
-
-  margin-bottom:
-    15px;
+.tab {
+  min-width: 150px;
+  max-width: 240px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: .2s;
+  white-space: nowrap;
 }
 
-
-/* =========================================================
-   AI CARD
-   ========================================================= */
-
-.ai-card {
-
-  grid-column:
-    span 2;
+.tab:hover {
+  background: rgba(105,70,232,.08);
 }
 
-.ai-header {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  margin-bottom:
-    10px;
+.tab.active {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
 
-.ai-icon {
-
-  width:
-    36px;
-
-  height:
-    36px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  border-radius:
-    10px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #5b5ce2,
-      #8056e9
-    );
-
-  color:
-    white;
+.tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
 }
 
-.ai-title {
-
-  font-weight:
-    bold;
+.close-tab {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: .6;
 }
 
-.ai-text {
-
-  color:
-    var(--muted);
-
-  line-height:
-    1.6;
-
-  min-height:
-    30px;
+.close-tab:hover {
+  opacity: 1;
 }
 
-.ai-note {
-
-  font-size:
-    11px;
-
-  color:
-    var(--muted);
-
-  margin-top:
-    10px;
-
-  opacity:
-    0.7;
+.new-tab {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
 }
 
-
-/* =========================================================
-   TRENDING
-   ========================================================= */
-
-.trend {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  padding:
-    9px 5px;
-
-  cursor:
-    pointer;
-
-  border-radius:
-    8px;
-
-  transition:
-    background 0.15s ease;
+.new-tab:hover {
+  background: rgba(105,70,232,.1);
 }
 
-.trend:hover {
+/* TAB CONTENT */
 
-  background:
-    rgba(128,128,128,0.08);
+.content {
+  min-height: 760px;
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 20px 20px;
+  background: var(--card);
+  backdrop-filter: blur(25px);
+  overflow: hidden;
 }
 
-.trend-number {
-
-  width:
-    25px;
-
-  color:
-    var(--muted);
+.tab-page {
+  display: none;
+  min-height: 760px;
 }
 
-.trend-name {
-
-  flex:
-    1;
+.tab-page.active {
+  display: block;
+  animation: appear .25s ease;
 }
 
-
-/* =========================================================
-   HISTORY
-   ========================================================= */
-
-.history-item {
-
-  display:
-    flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
-
-  padding:
-    9px 4px;
-
-  color:
-    var(--muted);
-
-  cursor:
-    pointer;
-
-  border-radius:
-    7px;
-
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.history-item:hover {
-
-  color:
-    var(--text);
-
-  background:
-    rgba(128,128,128,0.08);
-}
-
-.history-empty {
-
-  color:
-    var(--muted);
-
-  font-size:
-    13px;
-}
-
-.clear-history {
-
-  border:
-    none;
-
-  background:
-    transparent;
-
-  color:
-    #ef4444;
-
-  cursor:
-    pointer;
-
-  font-size:
-    12px;
-}
-
-
-/* =========================================================
-   GOOGLE RESULTS
-   ========================================================= */
-
-.results {
-
-  margin-top:
-    42px;
-
-  padding:
-    22px;
-
-  min-height:
-    100px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    20px;
-
-  background:
-    var(--card);
-
-  box-shadow:
-    var(--shadow);
-
-  /*
-    This prevents the page from jumping
-    as the CSE loads.
-  */
-
-  overflow:
-    hidden;
-}
-
-
-/*
-   Google CSE base
-*/
-
-.gsc-control-cse {
-
-  background:
-    transparent !important;
-
-  border:
-    none !important;
-
-  padding:
-    0 !important;
-}
-
-
-/*
-   Hide Google's own search box because
-   NOVA has its own.
-*/
-
-.gsc-search-box {
-
-  display:
-    none !important;
-}
-
-
-/*
-   Individual results
-*/
-
-.gsc-webResult.gsc-result {
-
-  background:
-    rgba(128,128,128,0.05) !important;
-
-  border:
-    1px solid var(--border) !important;
-
-  border-radius:
-    14px !important;
-
-  padding:
-    15px !important;
-
-  margin:
-    12px 0 !important;
-
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.gsc-webResult.gsc-result:hover {
-
-  background:
-    rgba(128,128,128,0.08) !important;
-
-  border-color:
-    rgba(91,92,226,0.25) !important;
-}
-
-
-/*
-   Result titles
-*/
-
-.gs-title,
-.gs-title b {
-
-  color:
-    #5b5ce2 !important;
-
-  font-size:
-    18px !important;
-}
-
-
-/*
-   Result text
-*/
-
-.gs-snippet {
-
-  color:
-    var(--text) !important;
-
-  opacity:
-    0.75;
-
-  line-height:
-    1.55 !important;
-}
-
-
-/*
-   URLs
-*/
-
-.gs-visibleUrl {
-
-  color:
-    #22a06b !important;
-}
-
-
-/*
-   Result count
-*/
-
-.gsc-result-info {
-
-  color:
-    var(--muted) !important;
-}
-
-
-/*
-   Pagination
-*/
-
-.gsc-cursor-page {
-
-  color:
-    #5b5ce2 !important;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-
-  text-align:
-    center;
-
-  color:
-    var(--muted);
-
-  margin-top:
-    45px;
-
-  font-size:
-    12px;
-}
-
-
-/* =========================================================
-   EASTER EGG
-   ========================================================= */
-
-#egg {
-
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  display:
-    none;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  background:
-    rgba(0,0,0,0.75);
-
-  z-index:
-    9999;
-
-  padding:
-    20px;
-}
-
-.egg-box {
-
-  text-align:
-    center;
-
-  padding:
-    45px;
-
-  border-radius:
-    25px;
-
-  background:
-    #111318;
-
-  color:
-    white;
-
-  box-shadow:
-    0 0 80px
-    rgba(91,92,226,0.4);
-
-  animation:
-    eggPop 0.25s ease;
-}
-
-.egg-box h2 {
-
-  font-size:
-    36px;
-
-  margin:
-    0;
-}
-
-.egg-box p {
-
-  color:
-    #aaa;
-
-  margin-bottom:
-    25px;
-}
-
-@keyframes eggPop {
-
+@keyframes appear {
   from {
-
-    transform:
-      scale(0.96);
-
-    opacity:
-      0;
+    opacity: 0;
+    transform: translateY(5px);
   }
 
   to {
-
-    transform:
-      scale(1);
-
-    opacity:
-      1;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* HOME */
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+.home {
+  padding: 65px 8% 80px;
+  text-align: center;
+}
+
+.logo {
+  font-size: clamp(70px, 12vw, 150px);
+  font-weight: 900;
+  letter-spacing: -8px;
+  margin: 15px 0 0;
+  background: linear-gradient(135deg,#5d3be8,#8b5cf6,#6d4aff);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.subtitle {
+  color: var(--muted);
+  letter-spacing: 7px;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* SEARCH */
+
+.search-box {
+  max-width: 1000px;
+  margin: 45px auto 15px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 8px 22px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  box-shadow: 0 15px 50px rgba(70,50,150,.13);
+}
+
+.search-box input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.search-box input::placeholder {
+  color: var(--muted);
+}
+
+.search-icon {
+  font-size: 25px;
+  margin-right: 15px;
+}
+
+.search-button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 0;
+  background: linear-gradient(135deg,#6b4aed,#805df5);
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.search-button:hover {
+  transform: scale(1.08);
+}
+
+/* SHORTCUTS */
+
+.shortcuts {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 20px;
+}
+
+kbd {
+  padding: 5px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+/* CHIPS */
+
+.chips {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 11px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: var(--text);
+  transition: .2s;
+}
+
+.chip:hover {
+  transform: translateY(-3px);
+  border-color: var(--purple);
+}
+
+/* AI BOX */
+
+.ai {
+  max-width: 1100px;
+  margin: 45px auto;
+  padding: 25px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+}
+
+.ai-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ai-text {
+  color: var(--muted);
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+/* SEARCH RESULTS */
+
+.results {
+  padding: 25px;
+  min-height: 760px;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.back-home {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 9px 13px;
+  cursor: pointer;
+}
+
+.cse-container {
+  width: 100%;
+}
+
+/* MOBILE */
 
 @media(max-width:700px) {
 
-  nav {
-
-    padding:
-      0 15px;
+  .topbar {
+    padding: 0 12px;
   }
 
-  .nav-link {
-
-    display:
-      none;
+  .browser {
+    width: 100%;
   }
 
-  .main {
-
-    padding-top:
-      5vh;
+  .tabs {
+    border-radius: 0;
   }
 
-  .dashboard {
-
-    grid-template-columns:
-      1fr;
+  .content {
+    border-radius: 0;
   }
 
-  .ai-card {
-
-    grid-column:
-      span 1;
+  .home {
+    padding: 40px 15px;
   }
 
-  .results {
-
-    padding:
-      14px;
-  }
-
-  .logo h1 {
-
-    letter-spacing:
-      -5px;
+  .logo {
+    font-size: 80px;
   }
 
   .search-box {
-
-    height:
-      58px;
+    height: 62px;
   }
 
-  .search-action {
+  .search-box input {
+    font-size: 16px;
+  }
 
-    width:
-      44px;
-
-    height:
-      44px;
+  .search-button {
+    width: 48px;
+    height: 48px;
   }
 }
-
-
-/* =========================================================
-   REDUCE MOTION
-   ========================================================= */
-
-@media(prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-
-    animation:
-      none !important;
-
-    transition:
-      none !important;
-
-    scroll-behavior:
-      auto !important;
-  }
-}
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     NAV
-     ===================================================== -->
-
-<nav>
-
-  <div class="nav-left">
-
-    <a
-      href="#"
-      class="nav-link">
-
-      NOVA
-
-    </a>
-
-    <a
-      href="#trending"
-      class="nav-link">
-
-      Trending
-
-    </a>
-
-  </div>
-
+<div class="topbar">
+  <div class="brand">NOVA</div>
 
   <div class="nav-right">
-
-    <button
-      class="nav-button"
-      id="themeButton"
-      title="Toggle dark/light mode">
-
+    <button class="icon-btn" onclick="toggleDark()" title="Dark mode">
       🌙
-
     </button>
-
   </div>
+</div>
 
-</nav>
+<div class="browser">
 
+  <!-- INTERNAL TABS -->
 
-<!-- =====================================================
-     MAIN
-     ===================================================== -->
+  <div class="tabs" id="tabs"></div>
 
-<main class="main">
+  <!-- TAB CONTENT -->
 
+  <div class="content" id="pages"></div>
 
-  <!-- LOGO -->
+</div>
 
-  <div class="logo">
+<script>
 
-    <h1 id="logo">
-      NOVA
-    </h1>
+/* =========================
+   NOVA TAB SYSTEM
+========================= */
 
-    <p>
-      Search beyond ordinary
-    </p>
+let tabs = [];
+let activeTab = null;
+let tabNumber = 1;
 
-  </div>
+function createTab(title = "New Tab") {
 
+  const id = "nova-tab-" + Date.now();
 
-  <!-- ===================================================
-       SEARCH
-       =================================================== -->
+  const tab = {
+    id: id,
+    title: title,
+    query: ""
+  };
 
-  <div class="search-wrapper">
+  tabs.push(tab);
 
-    <form
-      class="search-box"
-      id="searchForm">
+  createTabButton(tab);
+  createTabPage(tab);
 
-      <span
-        class="search-icon">
+  switchTab(id);
+}
 
-        🔎
+function createTabButton(tab) {
 
-      </span>
+  const button = document.createElement("div");
 
+  button.className = "tab";
+  button.id = "button-" + tab.id;
 
-      <input
-        id="customSearch"
-        type="text"
-        autocomplete="off"
-        placeholder="Search the web..."
-      >
+  button.innerHTML = `
+    <span>🌐</span>
+    <span class="tab-title">${tab.title}</span>
+    <button class="close-tab" onclick="event.stopPropagation(); closeTab('${tab.id}')">×</button>
+  `;
 
+  button.onclick = () => switchTab(tab.id);
 
-      <button
-        class="search-action"
-        type="submit">
+  document.getElementById("tabs").appendChild(button);
+}
 
-        ➜
+function createTabPage(tab) {
 
-      </button>
+  const page = document.createElement("div");
 
-    </form>
+  page.className = "tab-page";
+  page.id = tab.id;
 
+  page.innerHTML = `
 
-    <div class="shortcut">
+    <div class="home">
 
-      Press
-      <kbd>/</kbd>
-      or
-      <kbd>Ctrl</kbd>
-      +
-      <kbd>K</kbd>
+      <div class="logo">NOVA</div>
 
-    </div>
-
-  </div>
-
-
-  <!-- ===================================================
-       QUICK SEARCH
-       =================================================== -->
-
-  <div class="quick-links">
-
-    <button
-      class="quick"
-      onclick="quickSearch('latest technology news')">
-
-      💻 Tech
-
-    </button>
-
-
-    <button
-      class="quick"
-      onclick="quickSearch('funny videos')">
-
-      😂 Funny
-
-    </button>
-
-
-    <button
-      class="quick"
-      onclick="quickSearch('space discoveries')">
-
-      🚀 Space
-
-    </button>
-
-
-    <button
-      class="quick"
-      onclick="quickSearch('gaming news')">
-
-      🎮 Gaming
-
-    </button>
-
-
-    <button
-      class="quick"
-      onclick="randomSearch()">
-
-      🎲 Random
-
-    </button>
-
-  </div>
-
-
-  <!-- ===================================================
-       DASHBOARD
-       =================================================== -->
-
-  <section class="dashboard">
-
-
-    <!-- AI -->
-
-    <div class="card ai-card">
-
-      <div class="ai-header">
-
-        <div class="ai-icon">
-          ✦
-        </div>
-
-        <div class="ai-title">
-          NOVA AI
-        </div>
-
+      <div class="subtitle">
+        SEARCH BEYOND ORDINARY
       </div>
 
+      <form class="search-box" onsubmit="searchFromTab(event,'${tab.id}')">
 
-      <div
-        class="ai-text"
-        id="aiText">
+        <span class="search-icon">🔎</span>
 
-        Ask NOVA something and I'll give you
-        a quick preview before you search.
+        <input
+          id="input-${tab.id}"
+          placeholder="Search the web..."
+          autocomplete="off"
+        >
 
+        <button class="search-button">
+          ➜
+        </button>
+
+      </form>
+
+      <div class="shortcuts">
+        Press <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>K</kbd>
       </div>
 
+      <div class="chips">
 
-      <div class="ai-note">
+        <button class="chip" onclick="quickSearch('${tab.id}','technology')">
+          💻 Tech
+        </button>
 
-        AI preview • Verify important information
+        <button class="chip" onclick="quickSearch('${tab.id}','funny videos')">
+          😂 Funny
+        </button>
 
-      </div>
+        <button class="chip" onclick="quickSearch('${tab.id}','space')">
+          🚀 Space
+        </button>
 
-    </div>
+        <button class="chip" onclick="quickSearch('${tab.id}','gaming')">
+          🎮 Gaming
+        </button>
 
-
-    <!-- TRENDING -->
-
-    <div
-      class="card"
-      id="trending">
-
-      <div class="card-title">
-
-        🔥 Trending searches
-
-      </div>
-
-
-      <div
-        class="trend"
-        onclick="quickSearch('AI news 2026')">
-
-        <span class="trend-number">
-          1
-        </span>
-
-        <span class="trend-name">
-          AI news
-        </span>
-
-      </div>
-
-
-      <div
-        class="trend"
-        onclick="quickSearch('new games 2026')">
-
-        <span class="trend-number">
-          2
-        </span>
-
-        <span class="trend-name">
-          New games
-        </span>
-
-      </div>
-
-
-      <div
-        class="trend"
-        onclick="quickSearch('space news')">
-
-        <span class="trend-number">
-          3
-        </span>
-
-        <span class="trend-name">
-          Space discoveries
-        </span>
-
-      </div>
-
-
-      <div
-        class="trend"
-        onclick="quickSearch('funny memes')">
-
-        <span class="trend-number">
-          4
-        </span>
-
-        <span class="trend-name">
-          Memes
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <!-- HISTORY -->
-
-    <div class="card">
-
-      <div
-        class="card-title"
-        style="
-          display:flex;
-          justify-content:space-between;
-        ">
-
-        <span>
-          🕘 Recent searches
-        </span>
-
-
-        <button
-          class="clear-history"
-          onclick="clearHistory()">
-
-          Clear
-
+        <button class="chip" onclick="quickSearch('${tab.id}','random facts')">
+          🎲 Random
         </button>
 
       </div>
 
-
-      <div id="history"></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ===================================================
-       GOOGLE RESULTS
-       =================================================== -->
-
-  <section
-    class="results"
-    id="results">
-
-    <div class="gcse-search"></div>
-
-  </section>
-
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    NOVA SEARCH • Powered by Google
-
-    <br>
-    <br>
-
-    ✦ Try typing
-    <b>konami</b>
-
-  </footer>
-
-</main>
-
-
-<!-- =====================================================
-     EASTER EGG
-     ===================================================== -->
-
-<div id="egg">
-
-  <div class="egg-box">
-
-    <h2>
-      🚀 NOVA OVERDRIVE
-    </h2>
-
-    <p>
-      You found the secret.
-    </p>
-
-
-    <button
-      class="quick"
-      onclick="closeEgg()">
-
-      Continue searching
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const input =
-  document.getElementById("customSearch");
-
-const form =
-  document.getElementById("searchForm");
-
-const aiText =
-  document.getElementById("aiText");
-
-const historyBox =
-  document.getElementById("history");
-
-const themeButton =
-  document.getElementById("themeButton");
-
-const egg =
-  document.getElementById("egg");
-
-const results =
-  document.getElementById("results");
-
-
-/* =========================================================
-   THEME
-   ========================================================= */
-
-const savedTheme =
-  localStorage.getItem("nova-theme");
-
-if (savedTheme === "dark") {
-
-  document.body.classList.add("dark");
-
-  themeButton.textContent =
-    "☀️";
-}
-
-
-themeButton.addEventListener(
-  "click",
-  function() {
-
-    document.body.classList.toggle("dark");
-
-    const isDark =
-      document.body.classList.contains("dark");
-
-    localStorage.setItem(
-      "nova-theme",
-      isDark
-        ? "dark"
-        : "light"
-    );
-
-    themeButton.textContent =
-      isDark
-        ? "☀️"
-        : "🌙";
-
-  }
-);
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-form.addEventListener(
-  "submit",
-  function(event) {
-
-    event.preventDefault();
-
-    const query =
-      input.value.trim();
-
-    if (!query)
-      return;
-
-    performSearch(query);
-
-  }
-);
-
-
-function performSearch(query) {
-
-  saveHistory(query);
-
-  showAI(query);
-
-
-  /*
-    Find Google's hidden CSE input.
-  */
-
-  const googleInput =
-    document.querySelector(
-      "input.gsc-input"
-    );
-
-
-  if (!googleInput) {
-
-    /*
-      Google CSE is still loading.
-      Wait and try again.
-    */
-
-    setTimeout(
-      function() {
-
-        performSearch(query);
-
-      },
-      300
-    );
-
-    return;
-  }
-
-
-  googleInput.value =
-    query;
-
-
-  const googleButton =
-    document.querySelector(
-      ".gsc-search-button-v2"
-    );
-
-
-  if (googleButton) {
-
-    googleButton.click();
-
-  }
-
-
-  /*
-    Give Google a moment to render
-    before scrolling.
-  */
-
-  setTimeout(
-    function() {
-
-      results.scrollIntoView({
-        behavior:
-          "smooth",
-        block:
-          "start"
-      });
-
-    },
-    250
-  );
-
-}
-
-
-/* =========================================================
-   QUICK SEARCH
-   ========================================================= */
-
-function quickSearch(query) {
-
-  input.value =
-    query;
-
-  performSearch(query);
-
-}
-
-
-/* =========================================================
-   RANDOM SEARCH
-   ========================================================= */
-
-const randomQueries = [
-
-  "weird facts about space",
-
-  "cool inventions",
-
-  "funniest internet moments",
-
-  "deep ocean discoveries",
-
-  "strange animals",
-
-  "future technology",
-
-  "ancient mysteries",
-
-  "crazy science facts",
-
-  "best video games",
-
-  "things you didn't know existed"
-
-];
-
-
-function randomSearch() {
-
-  const index =
-    Math.floor(
-      Math.random() *
-      randomQueries.length
-    );
-
-  quickSearch(
-    randomQueries[index]
-  );
-
-}
-
-
-/* =========================================================
-   SEARCH HISTORY
-   ========================================================= */
-
-function getHistory() {
-
-  try {
-
-    return JSON.parse(
-      localStorage.getItem(
-        "nova-history"
-      ) || "[]"
-    );
-
-  } catch {
-
-    return [];
-
-  }
-
-}
-
-
-function saveHistory(query) {
-
-  let history =
-    getHistory();
-
-
-  /*
-    Remove duplicates.
-  */
-
-  history =
-    history.filter(
-      item =>
-        item !== query
-    );
-
-
-  /*
-    Put newest search first.
-  */
-
-  history.unshift(query);
-
-
-  /*
-    Keep only six.
-  */
-
-  history =
-    history.slice(0, 6);
-
-
-  localStorage.setItem(
-    "nova-history",
-    JSON.stringify(history)
-  );
-
-
-  renderHistory();
-
-}
-
-
-function renderHistory() {
-
-  const history =
-    getHistory();
-
-
-  if (!history.length) {
-
-    historyBox.innerHTML = `
-
-      <div class="history-empty">
-
-        Your searches will appear here.
+      <div class="ai">
+
+        <div class="ai-title">
+          ✨ NOVA AI
+        </div>
+
+        <div class="ai-text">
+          Ask NOVA something and I'll give you a quick preview
+          before you search.
+        </div>
+
+        <div class="ai-text">
+          AI preview • Verify important information
+        </div>
 
       </div>
 
-    `;
+    </div>
+  `;
+
+  document.getElementById("pages").appendChild(page);
+}
+
+function switchTab(id) {
+
+  activeTab = id;
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.remove("active");
+  });
+
+  document.querySelectorAll(".tab-page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  const button = document.getElementById("button-" + id);
+  const page = document.getElementById(id);
+
+  if (button) button.classList.add("active");
+  if (page) page.classList.add("active");
+
+  const input = document.getElementById("input-" + id);
+
+  if (input) {
+    setTimeout(() => input.focus(), 100);
+  }
+}
+
+function closeTab(id) {
+
+  if (tabs.length === 1) {
+    return;
+  }
+
+  const index = tabs.findIndex(t => t.id === id);
+
+  tabs = tabs.filter(t => t.id !== id);
+
+  document.getElementById("button-" + id)?.remove();
+  document.getElementById(id)?.remove();
+
+  if (activeTab === id) {
+
+    const next =
+      tabs[index] ||
+      tabs[index - 1] ||
+      tabs[0];
+
+    switchTab(next.id);
+  }
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchFromTab(event,id) {
+
+  event.preventDefault();
+
+  const input = document.getElementById("input-" + id);
+
+  if (!input.value.trim()) return;
+
+  performSearch(id,input.value.trim());
+}
+
+function quickSearch(id,query) {
+
+  performSearch(id,query);
+}
+
+function performSearch(id,query) {
+
+  const tab = tabs.find(t => t.id === id);
+
+  if (!tab) return;
+
+  tab.query = query;
+  tab.title = query.length > 18
+    ? query.substring(0,18) + "..."
+    : query;
+
+  const button = document.getElementById("button-" + id);
+
+  if (button) {
+    button.querySelector(".tab-title").textContent = tab.title;
+  }
+
+  const page = document.getElementById(id);
+
+  page.innerHTML = `
+
+    <div class="results">
+
+      <div class="results-header">
+
+        <button class="back-home"
+          onclick="goHome('${id}')">
+          ← Home
+        </button>
+
+        <strong>${escapeHTML(query)}</strong>
+
+      </div>
+
+      <div class="cse-container" id="cse-${id}"></div>
+
+    </div>
+
+  `;
+
+  switchTab(id);
+
+  loadSearch(id,query);
+}
+
+function goHome(id) {
+
+  const tab = tabs.find(t => t.id === id);
+
+  if (!tab) return;
+
+  tab.title = "New Tab";
+  tab.query = "";
+
+  const button = document.getElementById("button-" + id);
+
+  if (button) {
+    button.querySelector(".tab-title").textContent = "New Tab";
+  }
+
+  const page = document.getElementById(id);
+
+  page.innerHTML = "";
+
+  createHomeInside(page,id);
+
+  switchTab(id);
+}
+
+/* =========================
+   GOOGLE CUSTOM SEARCH
+========================= */
+
+let googleLoaded = false;
+let googleReady = false;
+let waitingSearches = [];
+
+function loadGoogleScript() {
+
+  if (googleLoaded) return;
+
+  googleLoaded = true;
+
+  window.__gcse = {
+
+    parsetags: "explicit",
+
+    callback: function() {
+
+      googleReady = true;
+
+      waitingSearches.forEach(item => {
+        renderGoogleSearch(item.id,item.query);
+      });
+
+      waitingSearches = [];
+    }
+
+  };
+
+  const script = document.createElement("script");
+
+  script.async = true;
+  script.src =
+    "https://cse.google.com/cse.js?cx=000732f98f99a49d9";
+
+  document.head.appendChild(script);
+}
+
+function loadSearch(id,query) {
+
+  loadGoogleScript();
+
+  if (!googleReady) {
+
+    waitingSearches.push({
+      id:id,
+      query:query
+    });
 
     return;
-
   }
 
-
-  historyBox.innerHTML =
-    history.map(
-      function(query) {
-
-        return `
-
-          <div
-            class="history-item"
-            data-query="${escapeHTML(query)}">
-
-            <span>
-              🕘 ${escapeHTML(query)}
-            </span>
-
-            <span>
-              →
-            </span>
-
-          </div>
-
-        `;
-
-      }
-    ).join("");
-
-
-  /*
-    Add click listeners safely.
-  */
-
-  document
-    .querySelectorAll(".history-item")
-    .forEach(
-      function(item) {
-
-        item.addEventListener(
-          "click",
-          function() {
-
-            quickSearch(
-              item.dataset.query
-            );
-
-          }
-        );
-
-      }
-    );
-
+  renderGoogleSearch(id,query);
 }
 
+function renderGoogleSearch(id,query) {
 
-function clearHistory() {
+  const container =
+    document.getElementById("cse-" + id);
 
-  localStorage.removeItem(
-    "nova-history"
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  try {
+
+    google.search.cse.element.render({
+
+      div: container.id,
+
+      tag: "search",
+
+      attributes: {
+        queryParameterName: "q"
+      }
+
+    });
+
+    setTimeout(() => {
+
+      const input =
+        container.querySelector("input.gsc-input");
+
+      if (input) {
+        input.value = query;
+      }
+
+      const button =
+        container.querySelector("button.gsc-search-button");
+
+      if (button) {
+        button.click();
+      }
+
+    },500);
+
+  } catch(error) {
+
+    container.innerHTML = `
+      <p style="color:var(--muted)">
+        NOVA couldn't load search results.
+        Please refresh the page.
+      </p>
+    `;
+
+  }
+}
+
+/* =========================
+   HOME REBUILD
+========================= */
+
+function createHomeInside(page,id) {
+
+  page.innerHTML = `
+
+    <div class="home">
+
+      <div class="logo">NOVA</div>
+
+      <div class="subtitle">
+        SEARCH BEYOND ORDINARY
+      </div>
+
+      <form class="search-box"
+        onsubmit="searchFromTab(event,'${id}')">
+
+        <span class="search-icon">🔎</span>
+
+        <input
+          id="input-${id}"
+          placeholder="Search the web..."
+          autocomplete="off"
+        >
+
+        <button class="search-button">
+          ➜
+        </button>
+
+      </form>
+
+      <div class="shortcuts">
+        Press <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>K</kbd>
+      </div>
+
+      <div class="chips">
+
+        <button class="chip"
+          onclick="quickSearch('${id}','technology')">
+          💻 Tech
+        </button>
+
+        <button class="chip"
+          onclick="quickSearch('${id}','funny videos')">
+          😂 Funny
+        </button>
+
+        <button class="chip"
+          onclick="quickSearch('${id}','space')">
+          🚀 Space
+        </button>
+
+        <button class="chip"
+          onclick="quickSearch('${id}','gaming')">
+          🎮 Gaming
+        </button>
+
+        <button class="chip"
+          onclick="quickSearch('${id}','random facts')">
+          🎲 Random
+        </button>
+
+      </div>
+
+      <div class="ai">
+
+        <div class="ai-title">
+          ✨ NOVA AI
+        </div>
+
+        <div class="ai-text">
+          Ask NOVA something and I'll give you a quick
+          preview before you search.
+        </div>
+
+        <div class="ai-text">
+          AI preview • Verify important information
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark() {
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "nova-dark",
+    document.body.classList.contains("dark")
   );
-
-  renderHistory();
-
 }
 
+if (localStorage.getItem("nova-dark") === "true") {
+  document.body.classList.add("dark");
+}
 
-/* =========================================================
-   AI PREVIEW
-   ========================================================= */
+/* =========================
+   KEYBOARD SHORTCUTS
+========================= */
 
-function showAI(query) {
-
-  const lower =
-    query.toLowerCase();
-
-
-  let response =
-    `Searching the web for “${query}”…`;
-
+document.addEventListener("keydown",event => {
 
   if (
-    lower.includes("weather")
+    event.key === "/" &&
+    document.activeElement.tagName !== "INPUT"
   ) {
 
-    response =
-      "🌤️ You're looking for weather information. NOVA will search for current results.";
+    event.preventDefault();
 
+    const input =
+      document.getElementById("input-" + activeTab);
+
+    if (input) input.focus();
   }
 
-
-  else if (
-    lower.includes("who is")
+  if (
+    (event.ctrlKey || event.metaKey) &&
+    event.key.toLowerCase() === "k"
   ) {
 
-    response =
-      "👤 I'll search for information about the person or subject you're asking about.";
+    event.preventDefault();
 
+    const input =
+      document.getElementById("input-" + activeTab);
+
+    if (input) input.focus();
   }
 
-
-  else if (
-    lower.startsWith("how")
+  if (
+    (event.ctrlKey || event.metaKey) &&
+    event.key.toLowerCase() === "t"
   ) {
 
-    response =
-      "💡 Looks like you're looking for a how-to answer. I'll find useful guides and explanations.";
+    event.preventDefault();
 
+    createTab();
   }
 
-
-  else if (
-    lower.includes("game") ||
-    lower.includes("gaming")
+  if (
+    (event.ctrlKey || event.metaKey) &&
+    event.key.toLowerCase() === "w"
   ) {
 
-    response =
-      "🎮 Gaming detected. Searching for guides, news, and information.";
+    event.preventDefault();
 
+    closeTab(activeTab);
   }
 
+});
 
-  else if (
-    lower.includes("space")
-  ) {
+/* =========================
+   SECURITY
+========================= */
 
-    response =
-      "🚀 Space mode activated. Searching for discoveries, missions, and astronomy information.";
+function escapeHTML(text) {
 
-  }
-
-
-  else if (
-    lower.includes("recipe") ||
-    lower.includes("food")
-  ) {
-
-    response =
-      "🍔 Food search detected. Let's find some tasty answers.";
-
-  }
-
-
-  aiText.textContent =
-    response;
-
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
+/* =========================
+   START NOVA
+========================= */
 
-/* =========================================================
-   KEYBOARD SHORTCUTS
-   ========================================================= */
+createTab("New Tab");
 
-document.addEventListener(
-  "keydown",
-  function(event) {
+/* NEW TAB BUTTON */
 
-    /*
-      /
-    */
+const newButton = document.createElement("button");
 
-    if (
-      event.key === "/" &&
-      document.activeElement !== input
-    ) {
+newButton.className = "new-tab";
+newButton.innerHTML = "+";
+newButton.title = "New NOVA tab";
 
-      event.preventDefault();
+newButton.onclick = () => {
+  createTab("New Tab");
+};
 
-      input.focus();
-
-    }
-
-
-    /*
-      Ctrl + K
-    */
-
-    if (
-      event.ctrlKey &&
-      event.key.toLowerCase() === "k"
-    ) {
-
-      event.preventDefault();
-
-      input.focus();
-
-    }
-
-
-    /*
-      Escape
-    */
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      input.blur();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   EASTER EGG — KONAMI CODE
-   ========================================================= */
-
-let konami = [];
-
-const secretCode = [
-
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight",
-  "b",
-  "a"
-
-];
-
-
-document.addEventListener(
-  "keydown",
-  function(event) {
-
-    konami.push(
-      event.key
-    );
-
-
-    konami =
-      konami.slice(
-        -secretCode.length
-      );
-
-
-    if (
-      konami.join(",") ===
-      secretCode.join(",")
-    ) {
-
-      openEgg();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   KONAMI SEARCH
-   ========================================================= */
-
-input.addEventListener(
-  "keydown",
-  function(event) {
-
-    if (
-      event.key === "Enter" &&
-      input.value
-        .toLowerCase()
-        .trim() === "konami"
-    ) {
-
-      event.preventDefault();
-
-      openEgg();
-
-    }
-
-  }
-);
-
-
-function openEgg() {
-
-  egg.style.display =
-    "flex";
-
-}
-
-
-function closeEgg() {
-
-  egg.style.display =
-    "none";
-
-}
-
-
-/* =========================================================
-   LOGO EASTER EGG
-   ========================================================= */
-
-let logoClicks =
-  0;
-
-
-document
-  .getElementById("logo")
-  .addEventListener(
-    "click",
-    function() {
-
-      logoClicks++;
-
-
-      if (
-        logoClicks >= 7
-      ) {
-
-        logoClicks = 0;
-
-        openEgg();
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   HTML SAFETY
-   ========================================================= */
-
-function escapeHTML(value) {
-
-  return value
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* =========================================================
-   START
-   ========================================================= */
-
-renderHistory();
+document.getElementById("tabs").appendChild(newButton);
 
 </script>
 
 </body>
 </html>
-
