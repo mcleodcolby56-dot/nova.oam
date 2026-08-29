@@ -1,32 +1,950 @@
-✦
-NOVA Search
-← → ☾
-NOVA
-SEARCH BEYOND ORDINARY
-🔎
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA Search</title>
 
-➜
-Press / or Ctrl + K to search
-💻 Tech
-😂 Funny
-🚀 Space
-🎮 Gaming
-🎲 Random
-✦
-NOVA AI
-Quick AI-style preview before you search.
-Ask NOVA something
-Type a question or search above and NOVA will give you a quick preview.
-🔥
-Trending searches
-Jump into a popular topic.
-🤖 AI news
-🎮 New games
-🌌 Space discoveries
-⚡ Latest technology
-🕘
-Search history
-Your recent NOVA searches are stored only in this browser.
-Clear
-NOVA • Search beyond ordinary • Press Ctrl/⌘ + T for a new tab
+<style>
+* {
+  box-sizing: border-box;
+}
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(110,80,255,.12), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(150,100,255,.12), transparent 30%),
+    #f7f8fc;
+  color: #202124;
+  transition: .3s;
+}
+
+/* DARK MODE */
+body.dark {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(110,80,255,.18), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(150,100,255,.15), transparent 30%),
+    #101114;
+  color: white;
+}
+
+/* TAB BAR */
+.browser {
+  width: 100%;
+  background: rgba(245,245,250,.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding: 8px 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dark .browser {
+  background: rgba(25,26,31,.92);
+  border-color: rgba(255,255,255,.08);
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  min-width: 170px;
+  max-width: 230px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220,220,225,.7);
+  cursor: pointer;
+  user-select: none;
+  transition: .2s;
+}
+
+.dark .tab {
+  background: #24252b;
+}
+
+.tab.active {
+  background: white;
+  box-shadow: 0 -1px 8px rgba(0,0,0,.05);
+}
+
+.dark .tab.active {
+  background: #18191e;
+}
+
+.tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.close {
+  opacity: .5;
+  font-size: 18px;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.new-tab {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.new-tab:hover {
+  background: rgba(128,128,128,.15);
+}
+
+/* TOOLBAR */
+.toolbar {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  border-top: 1px solid rgba(0,0,0,.05);
+}
+
+.dark .toolbar {
+  border-color: rgba(255,255,255,.05);
+}
+
+.toolbar button {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: .7;
+}
+
+.toolbar button:hover {
+  opacity: 1;
+}
+
+.address {
+  flex: 1;
+  height: 36px;
+  border-radius: 20px;
+  background: rgba(220,220,225,.55);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.dark .address {
+  background: #25262c;
+  color: #bbb;
+}
+
+/* PAGE */
+.page {
+  max-width: 1250px;
+  margin: auto;
+  padding: 30px 30px 80px;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-small {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links span {
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding-top: 90px;
+}
+
+.logo {
+  font-size: clamp(80px, 13vw, 170px);
+  font-weight: 900;
+  letter-spacing: -10px;
+  background: linear-gradient(135deg, #5b36e8, #8155ff, #a66cff);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: float 4s ease-in-out infinite;
+  text-shadow: 0 15px 50px rgba(100,60,255,.15);
+}
+
+@keyframes float {
+  0%,100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.tagline {
+  margin-top: 15px;
+  letter-spacing: 8px;
+  color: #737987;
+  font-size: 15px;
+}
+
+.dark .tagline {
+  color: #aaa;
+}
+
+/* SEARCH */
+.search-wrap {
+  margin: 45px auto 20px;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 40px;
+  padding: 8px 10px 8px 22px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.08);
+}
+
+.dark .search-wrap {
+  background: #1b1c21;
+  border-color: rgba(255,255,255,.1);
+}
+
+.search-icon {
+  font-size: 25px;
+}
+
+.search {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 18px;
+  font-size: 21px;
+  color: inherit;
+}
+
+.search-button {
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#5d43ed,#7565ff);
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.search-button:hover {
+  transform: scale(1.07);
+}
+
+/* SHORTCUT */
+.shortcut {
+  text-align: center;
+  color: #777;
+}
+
+kbd {
+  background: rgba(150,150,150,.15);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+/* CHIPS */
+.chips {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 35px 0 50px;
+}
+
+.chip {
+  padding: 13px 20px;
+  border-radius: 25px;
+  background: rgba(255,255,255,.8);
+  border: 1px solid rgba(0,0,0,.08);
+  cursor: pointer;
+  transition: .2s;
+}
+
+.dark .chip {
+  background: #1d1e23;
+  border-color: rgba(255,255,255,.1);
+}
+
+.chip:hover {
+  transform: translateY(-3px);
+}
+
+/* CARDS */
+.card {
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 28px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.05);
+}
+
+.dark .card {
+  background: rgba(27,28,33,.9);
+  border-color: rgba(255,255,255,.08);
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.ai {
+  min-height: 150px;
+}
+
+.ai-answer {
+  color: #737987;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.dark .ai-answer {
+  color: #bbb;
+}
+
+.history-item,
+.trending-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(128,128,128,.15);
+  cursor: pointer;
+}
+
+.history-item:last-child,
+.trending-item:last-child {
+  border-bottom: 0;
+}
+
+/* MOBILE */
+@media(max-width:700px) {
+  .page {
+    padding: 20px 15px 60px;
+  }
+
+  .hero {
+    padding-top: 55px;
+  }
+
+  .logo {
+    letter-spacing: -5px;
+  }
+
+  .tagline {
+    font-size: 11px;
+    letter-spacing: 4px;
+  }
+
+  .search {
+    font-size: 17px;
+  }
+
+  .search-button {
+    width: 52px;
+    height: 52px;
+  }
+
+  .tab {
+    min-width: 145px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BUILT-IN NOVA TABS -->
+<div class="browser">
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="toolbar">
+    <button onclick="goBack()">‹</button>
+    <button onclick="goForward()">›</button>
+    <button onclick="reloadPage()">↻</button>
+
+    <div class="address" id="address">
+      nova://home
+    </div>
+
+    <button onclick="toggleDark()">☾</button>
+  </div>
+
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <div class="nav">
+    <div class="logo-small">NOVA</div>
+
+    <div class="nav-links">
+      <span onclick="showTrending()">Trending</span>
+      <span onclick="showHistory()">History</span>
+    </div>
+  </div>
+
+  <section class="hero">
+
+    <div class="logo">NOVA</div>
+
+    <div class="tagline">
+      SEARCH BEYOND ORDINARY
+    </div>
+
+    <form class="search-wrap" onsubmit="search(event)">
+
+      <div class="search-icon">🔎</div>
+
+      <input
+        id="search"
+        class="search"
+        placeholder="Search the web..."
+        autocomplete="off"
+      >
+
+      <button class="search-button">
+        ➜
+      </button>
+
+    </form>
+
+    <div class="shortcut">
+      Press <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>K</kbd>
+    </div>
+
+    <div class="chips">
+
+      <div class="chip" onclick="quickSearch('technology news')">
+        💻 Tech
+      </div>
+
+      <div class="chip" onclick="quickSearch('funny videos')">
+        😂 Funny
+      </div>
+
+      <div class="chip" onclick="quickSearch('space news')">
+        🚀 Space
+      </div>
+
+      <div class="chip" onclick="quickSearch('gaming news')">
+        🎮 Gaming
+      </div>
+
+      <div class="chip" onclick="quickSearch('random facts')">
+        🎲 Random
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- AI -->
+  <div class="card ai">
+
+    <div class="card-title">
+      ✦ NOVA AI
+    </div>
+
+    <div class="ai-answer" id="aiAnswer">
+      Ask NOVA something and I'll give you a quick preview before you search.
+    </div>
+
+    <small>
+      AI preview • Verify important information
+    </small>
+
+  </div>
+
+  <!-- TRENDING -->
+  <div class="card">
+
+    <div class="card-title">
+      🔥 Trending Searches
+    </div>
+
+    <div id="trending"></div>
+
+  </div>
+
+  <!-- HISTORY -->
+  <div class="card">
+
+    <div class="card-title">
+      🕘 Search History
+    </div>
+
+    <div id="history">
+      No searches yet.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* =========================
+   NOVA TABS
+========================= */
+
+let tabs = JSON.parse(localStorage.getItem("novaTabs")) || [
+  {
+    id: Date.now(),
+    title: "NOVA Search"
+  }
+];
+
+let activeTab =
+  Number(localStorage.getItem("novaActive")) || tabs[0].id;
+
+function saveTabs() {
+  localStorage.setItem("novaTabs", JSON.stringify(tabs));
+  localStorage.setItem("novaActive", activeTab);
+}
+
+function renderTabs() {
+
+  const container = document.getElementById("tabs");
+
+  container.innerHTML = "";
+
+  tabs.forEach(tab => {
+
+    const element = document.createElement("div");
+
+    element.className =
+      "tab " + (tab.id === activeTab ? "active" : "");
+
+    element.innerHTML = `
+      <span>🌐</span>
+      <span class="tab-title">${escapeHTML(tab.title)}</span>
+      <span class="close" onclick="closeTab(event, ${tab.id})">×</span>
+    `;
+
+    element.onclick = () => switchTab(tab.id);
+
+    container.appendChild(element);
+
+  });
+
+  const plus = document.createElement("button");
+
+  plus.className = "new-tab";
+  plus.innerHTML = "+";
+  plus.onclick = newTab;
+
+  container.appendChild(plus);
+}
+
+function newTab() {
+
+  const tab = {
+    id: Date.now(),
+    title: "NOVA Search"
+  };
+
+  tabs.push(tab);
+  activeTab = tab.id;
+
+  saveTabs();
+  renderTabs();
+
+  document.getElementById("search").focus();
+}
+
+function switchTab(id) {
+
+  activeTab = id;
+
+  saveTabs();
+  renderTabs();
+
+  const tab = tabs.find(t => t.id === id);
+
+  document.getElementById("address").textContent =
+    tab.title === "NOVA Search"
+      ? "nova://home"
+      : "nova://search/" + encodeURIComponent(tab.title);
+}
+
+function closeTab(event,id) {
+
+  event.stopPropagation();
+
+  if (tabs.length === 1) {
+    newTab();
+    return;
+  }
+
+  const index = tabs.findIndex(t => t.id === id);
+
+  tabs = tabs.filter(t => t.id !== id);
+
+  if (activeTab === id) {
+    activeTab =
+      tabs[Math.max(0,index - 1)].id;
+  }
+
+  saveTabs();
+  renderTabs();
+}
+
+renderTabs();
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function search(event) {
+
+  event.preventDefault();
+
+  const input =
+    document.getElementById("search");
+
+  const query =
+    input.value.trim();
+
+  if (!query) return;
+
+  const tab =
+    tabs.find(t => t.id === activeTab);
+
+  if (tab) {
+    tab.title = query;
+  }
+
+  saveHistory(query);
+
+  if (tab) {
+    document.getElementById("address").textContent =
+      "nova://search/" + encodeURIComponent(query);
+  }
+
+  renderTabs();
+
+  document.getElementById("aiAnswer").innerHTML =
+    `Searching the web for <strong>${escapeHTML(query)}</strong>...`;
+
+  /*
+     GOOGLE CUSTOM SEARCH
+  */
+
+  window.open(
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(query),
+    "_blank"
+  );
+
+  setTimeout(() => {
+
+    document.getElementById("aiAnswer").innerHTML =
+      `Here's your NOVA preview for <strong>${escapeHTML(query)}</strong>.<br><br>
+      Search results have been opened in a new tab.`;
+
+  },500);
+}
+
+function quickSearch(query) {
+
+  document.getElementById("search").value = query;
+
+  document.querySelector(".search-wrap").requestSubmit();
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function saveHistory(query) {
+
+  let history =
+    JSON.parse(localStorage.getItem("novaHistory")) || [];
+
+  history =
+    history.filter(x => x !== query);
+
+  history.unshift(query);
+
+  history = history.slice(0,10);
+
+  localStorage.setItem(
+    "novaHistory",
+    JSON.stringify(history)
+  );
+
+  renderHistory();
+}
+
+function renderHistory() {
+
+  const box =
+    document.getElementById("history");
+
+  const history =
+    JSON.parse(localStorage.getItem("novaHistory")) || [];
+
+  if (!history.length) {
+    box.textContent = "No searches yet.";
+    return;
+  }
+
+  box.innerHTML = history.map(q => `
+    <div
+      class="history-item"
+      onclick="quickSearch('${escapeJS(q)}')"
+    >
+      🔎 ${escapeHTML(q)}
+    </div>
+  `).join("");
+}
+
+renderHistory();
+
+
+/* =========================
+   TRENDING
+========================= */
+
+const trending = [
+  "Latest technology",
+  "Gaming news",
+  "Space discoveries",
+  "Funny videos",
+  "AI news",
+  "New movies",
+  "Sports highlights"
+];
+
+function renderTrending() {
+
+  document.getElementById("trending").innerHTML =
+    trending.map(q => `
+      <div
+        class="trending-item"
+        onclick="quickSearch('${escapeJS(q)}')"
+      >
+        🔥 ${q}
+      </div>
+    `).join("");
+}
+
+renderTrending();
+
+function showTrending() {
+
+  document
+    .getElementById("trending")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+}
+
+function showHistory() {
+
+  document
+    .getElementById("history")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark() {
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "novaDark",
+    document.body.classList.contains("dark")
+  );
+}
+
+if (
+  localStorage.getItem("novaDark") === "true"
+) {
+  document.body.classList.add("dark");
+}
+
+
+/* =========================
+   KEYBOARD SHORTCUTS
+========================= */
+
+document.addEventListener("keydown", e => {
+
+  if (
+    e.key === "/" &&
+    document.activeElement.tagName !== "INPUT"
+  ) {
+    e.preventDefault();
+
+    document.getElementById("search").focus();
+  }
+
+  if (
+    (e.ctrlKey || e.metaKey) &&
+    e.key.toLowerCase() === "k"
+  ) {
+    e.preventDefault();
+
+    document.getElementById("search").focus();
+  }
+
+  if (
+    (e.ctrlKey || e.metaKey) &&
+    e.key.toLowerCase() === "t"
+  ) {
+    e.preventDefault();
+
+    newTab();
+  }
+
+  if (
+    (e.ctrlKey || e.metaKey) &&
+    e.key.toLowerCase() === "w"
+  ) {
+    e.preventDefault();
+
+    if (tabs.length > 1) {
+      closeTab(e,activeTab);
+    }
+  }
+
+});
+
+
+/* =========================
+   BROWSER BUTTONS
+========================= */
+
+function goBack() {
+  history.back();
+}
+
+function goForward() {
+  history.forward();
+}
+
+function reloadPage() {
+  location.reload();
+}
+
+
+/* =========================
+   EASTER EGGS 👀
+========================= */
+
+let konami = [];
+
+document.addEventListener("keydown", e => {
+
+  konami.push(e.key);
+
+  konami =
+    konami.slice(-10);
+
+  if (
+    konami.join(",") ===
+    "ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a"
+  ) {
+
+    document.body.style.transform =
+      "rotate(360deg)";
+
+    document.body.style.transition =
+      "1s";
+
+    setTimeout(() => {
+      document.body.style.transform =
+        "";
+    },1000);
+
+  }
+
+});
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+function escapeHTML(str) {
+
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function escapeJS(str) {
+
+  return String(str)
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll("\n","\\n");
+}
+
+</script>
+
+</body>
+</html>
